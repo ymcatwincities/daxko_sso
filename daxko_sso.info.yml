@@ -1,0 +1,8 @@
+name: Open Y Daxko SSO integrator
+type: module
+description: 'Provides connection to the Daxko SSO'
+package: Open Y
+version: 0.1
+core: 8.x
+dependencies:
+  - drupal:openy_system

@@ -1,0 +1,7 @@
+daxko_sso.settings:
+  path: '/admin/openy/integrations/daxko/daxko-sso'
+  defaults:
+    _form: '\Drupal\daxko_sso\Form\DaxkoSettingsForm'
+    _title: 'Daxko SSO settings'
+  requirements:
+    _permission: 'administer content'
