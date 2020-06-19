@@ -1,0 +1,5 @@
+daxko_sso.settings_form:
+  title: 'Daxko SSO Settings'
+  parent: openy_system.openy_integrations_daxko
+  route_name: daxko_sso.settings
+  weight: 100

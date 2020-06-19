@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="daxko_sso">
+    <description>PHP Code Sniffer configuration for Open Y Daxko SSO.</description>
+    <arg name="colors" />
+    <arg value="s" />
+    <rule ref="Drupal">
+        <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>
+    </rule>
+    <rule ref="DrupalPractice" />
+    <arg name="extensions" value="php,module,inc,install,test,profile,theme,css,info,txt,md,yml" />
+    <exclude-pattern>/node_modules/</exclude-pattern>
+    <exclude-pattern>/dist/</exclude-pattern>
+    <exclude-pattern>*.min.*</exclude-pattern>
+    <file>.</file>
+</ruleset>

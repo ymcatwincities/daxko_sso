@@ -1,0 +1,4 @@
+services:
+  daxko_sso.client:
+    class: Drupal\daxko_sso\DaxkoSSOClient
+    arguments: ['@config.factory',  '@http_client', '@logger.factory']
