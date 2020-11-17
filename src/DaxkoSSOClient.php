@@ -128,10 +128,10 @@ class DaxkoSSOClient {
         ],
         'links' => [
           'sign_up' => [
-            'url' => $link,
+            'url' => 'https://operations.daxko.com/Online/Join.aspx?cid=' . $this->daxkoConfig->get('client_id'),
           ],
           'forgot_password' => [
-            'url' => $link,
+            'url' => 'https://operations.daxko.com/online/' . $this->daxkoConfig->get('client_id') . '/Security/login.mvc/find_account',
           ],
         ],
       ]
