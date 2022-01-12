@@ -108,6 +108,39 @@ class DaxkoSSOClient {
 
 
   }
+  
+  /**
+   * Execute POST request to Daxko API.
+   *
+   * @param string $uri
+   *   Daxko API endpoint.
+   * @param array $body
+   *   An array of items for the request body.
+   *
+   * @return mixed
+   *   The response or error.
+   */
+  public function postRequest($uri, array $body = []) {
+
+    $token = $this->getDaxkoPartnerToken();
+
+    try {
+      $response = $this->http->request(
+        'POST',
+        $this->daxkoConfig->get('base_uri') . $uri,
+        [
+          'body' => json_encode($body),
+          'headers' => [
+            'Authorization' => "Bearer " . $token,
+            'Content-Type' => 'application/json',
+          ],
+        ]
+      );
+      return json_decode((string) $response->getBody());
+    } catch (\Exception $e) {
+      $this->logger->error($e->getMessage());
+    }
+  }
 
   /**
    * @param $link
