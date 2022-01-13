@@ -81,32 +81,74 @@ class DaxkoSSOClient {
   }
 
   /**
-   * @param $uri
-   *   Daxko API endpoint.
+   * Send a request using the Daxko token.
+   *
+   * @param string $method
+   *   The http method.
+   * @param string $uri
+   *   Daxko API endpoint after `/v3/` and with no leading slash.
+   * @param array $options
+   *   Options to send.
    *
    * @return mixed
-   *
-   *  Execute get request to daxko api.
+   *   The successful response body or error.
    */
-  public function getRequest($uri) {
-
-    $token = $this->getDaxkoPartnerToken();
+  public function request(string $method, string $uri, array $options = []) {
+    // If no Auth is passed, set it.
+    if (!isset($options['headers']['Authorization'])) {
+      $token = $this->getDaxkoPartnerToken();
+      $headers = [
+        'headers' => [
+          'Authorization' => "Bearer " . $token,
+        ],
+      ];
+      $options = array_merge_recursive($headers, $options);
+    }
 
     try {
       $response = $this->http->request(
-        'GET',
+        $method,
         $this->daxkoConfig->get('base_uri') . $uri,
-        [
-          'headers' => [
-            'Authorization' => "Bearer " . $token,
-          ],
-        ]);
+        $options
+      );
       return json_decode((string) $response->getBody());
     } catch (\Exception $e) {
       $this->logger->error($e->getMessage());
     }
+  }
 
+  /**
+   * Execute GET request to Daxko API.
+   *
+   * @param string $uri
+   *   Daxko API endpoint.
+   *
+   * @return mixed
+   *   The successful response body or error.
+   */
+  public function getRequest(string $uri) {
+    return $this->request('GET', $uri);
+  }
 
+  /**
+   * Execute POST request to Daxko API.
+   *
+   * @param string $uri
+   *   Daxko API endpoint.
+   * @param array $body
+   *   An array of items for the request body.
+   *
+   * @return mixed
+   *   The successful response body or error.
+   */
+  public function postRequest($uri, array $body = []) {
+    $options = [
+      'body' => json_encode($body),
+      'headers' => [
+        'Content-Type' => 'application/json',
+      ],
+    ];
+    return $this->request('POST', $uri, $options);
   }
 
   /**
