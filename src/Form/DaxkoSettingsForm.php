@@ -82,9 +82,9 @@ class DaxkoSettingsForm extends ConfigFormBase {
     /* @var $config \Drupal\Core\Config\Config */
     $config = $this->configFactory->getEditable('daxko_sso.settings');
 
-    $config->set('referesh_token', $form_state->getValue('referesh_token'))->save();
+    $config->set('referesh_token', trim($form_state->getValue('referesh_token')))->save();
 
-    $config->set('client_id', $form_state->getValue('client_id'))->save();
+    $config->set('client_id', trim($form_state->getValue('client_id')))->save();
 
     if ($base_uri = $form_state->getValue('base_uri')) {
       if (preg_match("#https?://#", $base_uri) === 0) {
@@ -93,12 +93,12 @@ class DaxkoSettingsForm extends ConfigFormBase {
       $config->set('base_uri', rtrim($base_uri, '/') . '/')->save();
     }
 
-    $config->set('user', $form_state->getValue('user'))->save();
+    $config->set('user', trim($form_state->getValue('user')))->save();
 
     if (empty($pass = $form_state->getValue('pass'))) {
       $pass = $config->get('pass');
     }
-    $config->set('pass', $pass)->save();
+    $config->set('pass', trim($pass))->save();
 
 
     parent::submitForm($form, $form_state);
