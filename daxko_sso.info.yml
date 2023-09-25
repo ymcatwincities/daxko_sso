@@ -3,6 +3,6 @@ type: module
 description: 'Provides connection to the Daxko SSO'
 package: Open Y
 version: 1.1
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 dependencies:
   - drupal:openy_system
